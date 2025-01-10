@@ -1,0 +1,35 @@
+<div class="container d-flex justify-content-center align-items-center min-vh-100 bg-dark text-light">
+  <div class="card p-4 shadow-lg" style="max-width: 400px; width: 100%; background-color: #343a40;">
+    <h2 class="text-center mb-4">Cadastro</h2>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "needs-validation" }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div class="mb-3">
+        <%= f.label :email, class: "form-label text-light" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control bg-dark text-light border-0", placeholder: "Ex: teste@exemplo.com" %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :senha, class: "form-label text-light" %>
+        <% if @minimum_password_length %>
+          <small class="form-text text-muted">(Min: <%= @minimum_password_length %> caracteres)</small>
+        <% end %>
+        <%= f.password_field :password, autocomplete: "new-password", class: "form-control bg-dark text-light border-0" %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :confirmar_senha, class: "form-label text-light" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control bg-dark text-light border-0" %>
+      </div>
+
+      <div class="d-grid">
+        <%= f.submit "Registrar", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+
+    <div class="text-center mt-3">
+      <%= render "devise/shared/links" %>
+    </div>
+  </div>
+</div>

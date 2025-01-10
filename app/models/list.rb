@@ -1,4 +1,5 @@
 class List < ApplicationRecord
+    belongs_to :user
     has_many :tasks, dependent: :destroy
     validates :title, presence: true, length: { minimum: 1, maximum: 50 }
     attribute :category, :string, default: ""

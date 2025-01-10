@@ -1,4 +1,4 @@
-<nav class="navbar navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-dark bg-dark fixed-top border-bottom">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">To Do List</a>
     <button 
@@ -61,10 +61,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link' do %>
               <%= image_tag 'log-out.svg', alt: 'Sair da Conta', class: 'icon-settings' %>
               Sair da Conta
-            </a>
+            <% end %>
           </li>
         </ul>
       </div>
