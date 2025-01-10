@@ -1,0 +1,40 @@
+.custom-offcanvas {
+  width: 260px !important;
+  padding: 12px 8px;
+}
+
+.container-fluid {
+  padding: 0 12px;
+}
+
+.navbar-nav .nav-link {
+  padding: 12px 0;
+}
+
+.navbar-brand {
+  padding-left: 16px;
+}
+
+.navbar-toggler {
+  margin-right: 16px;
+}
+
+.offcanvas-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.navbar-nav.main-items {
+  flex-grow: 1;
+}
+
+.navbar-nav .nav-item {
+  margin-bottom: 12px;
+}
+
+.icon-settings {
+  width: 20px;
+  height: auto;
+  margin-right: 8px;
+}
