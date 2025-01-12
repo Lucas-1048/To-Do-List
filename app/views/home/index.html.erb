@@ -1,1 +1,29 @@
+<%= stylesheet_link_tag 'home' %>
 <%= render "home/header" %>
+
+<div class="lists-container">
+  <% @lists.each do |list| %>
+    <div class="card">
+      <div class="header">
+        <p class="category">Categoria: <%= list.category %></p>
+        <div class="icons">
+          <%= link_to edit_home_path(id: list.id) do %>
+            <%= image_tag 'edit.svg', alt: 'Edit', class: 'icon-settings' %>
+          <% end %>
+          <%= link_to home_path(id: list.id), method: :delete do %>
+            <%= image_tag 'trash.svg', alt: 'Delete', class: 'icon-settings' %>
+          <% end %>
+        </div>
+      </div>
+      <h2><%= list.title %></h2>
+      <ul>
+        <% list.tasks.each do |task| %>
+          <li>
+            <span><%= task.description %></span>
+            <input type="checkbox" <%= 'checked' if task.checked %> disabled>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>

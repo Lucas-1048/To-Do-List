@@ -1,0 +1,37 @@
+<div class="container d-flex justify-content-center align-items-center min-vh-100 bg-dark text-light">
+  <div class="card p-4 shadow-lg" style="max-width: 400px; width: 100%; background-color: #343a40;">
+    <h2 class="text-center mb-4">Editar Lista</h2>
+
+    <%= form_with(model: @list, url: home_path(@list.id), method: :patch, local: true, html: { class: "needs-validation" }) do |form| %>
+
+      <div class="mb-3">
+        <%= form.label :title, "Título", class: "form-label text-light" %>
+        <%= form.text_field :title, class: "form-control bg-dark text-light border-0", placeholder: "Digite o título da lista" %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :category, "Categoria", class: "form-label text-light" %>
+        <%= form.select :category, options_for_select([["Escola", "Escola"], ["Trabalho", "Trabalho"], ["Pessoal", "Pessoal"], ["", ""]], @list.category), { class: "form-control bg-dark text-light border-0" } %>
+      </div>
+
+      <ul class="list-unstyled">
+        <% @list.tasks.each_with_index do |task, index| %>
+          <li class="mb-3">
+            <%= form.fields_for :tasks, task, index: index do |task_form| %>
+              <%= task_form.hidden_field :id %>
+              <div class="d-flex align-items-center">
+              <%= task_form.check_box :checked, class: "form-check-input me-2" %>
+              <%= task_form.text_field :description, class: "form-control bg-dark text-light border-0" %>
+              </div>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+
+      <div class="d-grid">
+        <%= form.submit "Salvar Alterações", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+
+  </div>
+</div>
