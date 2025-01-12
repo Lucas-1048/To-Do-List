@@ -1,10 +1,21 @@
+.header-container {
+  max-width: 80%; 
+  margin-top: 100px;
+}
+
+.custom-line {
+  border: 0;
+  border-top: 2px solid #ccc;
+  margin-top: 10px;          
+  margin-bottom: 10px;      
+}
+
 .lists-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: start;
   gap: 20px;
   row-gap: 40px;
-  margin-top: 100px;
   max-width: 80%;
   margin-right: auto;
 }
@@ -61,6 +72,7 @@
   justify-content: space-between;
   padding: 8px 0;
   border-bottom: 1px solid #495057;
+  word-break: break-word;
 }
 
 .card ul li:last-child {

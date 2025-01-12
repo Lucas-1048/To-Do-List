@@ -40,15 +40,15 @@
           <li class="nav-item">
             <span class="nav-link">Categorias</span>
             <ul class="list-unstyled ms-3">
-              <li><a class="nav-link" href="#">
+              <li><a class="nav-link" href="<%= home_category_path(category: 'Trabalho') %>">
                 <%= image_tag 'briefcase.svg', alt: 'Trabalho', class: 'icon-settings' %>
                 Trabalho
               </a></li>
-              <li><a class="nav-link" href="#">
+              <li><a class="nav-link" href="<%= home_category_path(category: 'Escola') %>">
                 <%= image_tag 'school.svg', alt: 'Escola', class: 'icon-settings' %>
                 Escola
               </a></li>
-              <li><a class="nav-link" href="#">
+              <li><a class="nav-link" href="<%= home_category_path(category: 'Pessoal') %>">
                 <%= image_tag 'user.svg', alt: 'Pessoal', class: 'icon-settings' %>
                 Pessoal
               </a></li>

@@ -1,5 +1,15 @@
-<%= stylesheet_link_tag 'home' %>
 <%= render "home/header" %>
+<%= stylesheet_link_tag 'home' %>
+
+<div class="header-container">
+  <div class="d-flex justify-content-between align-items-center">
+    <h2 class="text-light">Hoje</h2>
+    <%= link_to new_home_path do %>
+      <%= image_tag 'plus-circle.svg', alt: 'Adicionar' %> 
+    <% end %>
+  </div>
+  <hr class="custom-line">
+</div>
 
 <div class="lists-container">
   <% @lists.each do |list| %>

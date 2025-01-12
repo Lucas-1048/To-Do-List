@@ -2,7 +2,11 @@ class HomeController < ApplicationController
   before_action :redirect_user
 
   def index
-    @lists = List.includes(:tasks).where(user_id: current_user.id)
+    if params[:category].present?
+      @lists = List.includes(:tasks).where(user_id: current_user.id, category: params[:category])
+    else
+      @lists = List.includes(:tasks).where(user_id: current_user.id)
+    end
   end
 
   def new
@@ -10,15 +14,26 @@ class HomeController < ApplicationController
   end
 
   def create
-    list = List.new(title: params[:title], category: params[:category], user_id: current_user.id)
+    list_params = params.require(:list).permit(:title, :category)
+    list = List.new(list_params.merge(user_id: current_user.id))
+
+    if list.title.blank?
+      redirect_to new_home_path, alert: "O título da lista não pode estar em branco."
+      return
+    end
+
+    if params[:list][:tasks].values.all? { |task| task[:description].blank? }
+      redirect_to new_home_path, alert: "A lista deve conter pelo menos uma tarefa."
+      return
+    end
 
     if list.save
-      params[:tasks].each do |task_params|
-        Task.create(description: task_params[:description], checked: task_params[:checked], list_id: list.id)
+      params[:list][:tasks].values.each do |task_params|
+        Task.create(list_id: list.id, checked: task_params[:checked], description: task_params[:description])
       end
       redirect_to root_path
     else
-      redirect_to :new, alert: 'Erro ao criar lista.'
+      redirect_to new_home_path, alert: "Erro ao criar lista."
     end
   end
 
@@ -27,22 +42,44 @@ class HomeController < ApplicationController
   end
 
   def update
-    list = List.includes(:tasks).find(params[:id])
-  
+    list = List.find(params[:id])
+
+    if list.title.blank?
+      redirect_to edit_home_path(list), alert: "O título da lista não pode estar em branco."
+      return
+    end
+
+    if params[:list][:tasks].values.all? { |task| task[:description].blank? }
+      redirect_to edit_home_path(list), alert: "A lista deve conter pelo menos uma tarefa."
+      return
+    end
+
     if list.update(title: params[:list][:title], category: params[:list][:category])
       params[:list][:tasks].values.each do |task_params|
-        task = Task.find(task_params[:id])
+        task = list.tasks.find_by(id: task_params[:id])
         task.update(description: task_params[:description], checked: task_params[:checked])
       end
       redirect_to root_path
     else
-      redirect_to edit_home_path(list), alert: 'Erro ao atualizar lista.'
+      redirect_to edit_home_path(list), alert: "Erro ao atualizar lista."
     end
-  end  
+  end
 
   def destroy
     List.find(params[:id]).destroy
     redirect_to root_path
+  end
+
+  def set_personal
+    @lists = List.includes(:tasks).where(user_id: current_user.id, category: "personal")
+  end
+
+  def set_work
+    @lists = List.includes(:tasks).where(user_id: current_user.id, category: "work")
+  end
+
+  def set_study
+    @lists = List.includes(:tasks).where(user_id: current_user.id, category: "study")
   end
 
   private
