@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users
+
   root "home#index"
   resources :home, only: [ :new, :create, :edit, :update, :destroy ]
   get "home/:category(/:date)", to: "home#index", as: "home_filter"
 
-  get "calendar", to: "calendar#show", as: "calendar"
-
+  get "calendar", to: "calendar#show"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

@@ -88,16 +88,6 @@
   border: 2px solid #ffc107;
 }
 
-.custom-calendar .calendar-day .event {
-  background-color: #007bff; 
-  color: #fff;
-  padding: 3px 5px;
-  margin-top: 5px;
-  display: inline-block;
-  border-radius: 4px;
-  font-size: 0.8rem;
-}
-
 .date-select-button {
   background: none;
   border: none;

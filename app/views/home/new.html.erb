@@ -1,8 +1,8 @@
 <div class="container d-flex justify-content-center align-items-center min-vh-100 bg-dark text-light">
   <div class="card p-4 shadow-lg" style="max-width: 400px; width: 100%; background-color: #343a40;">
     <h2 class="text-center mb-4">Criar Lista</h2>
-
-    <%= form_with(model: @list, url: (params[:date] == Date.today.to_s || params[:date] == Date.tomorrow.to_s) ? home_index_path : home_index_path(date: params[:date]), method: :post, local: true, html: { class: "needs-validation" }) do |form| %>
+    
+    <%= form_with(model: @list, url: ([Date.today, Date.tomorrow].include?(Date.parse(params[:date]))) ? home_index_path : home_index_path(date: params[:date]), method: :post, local: true, html: { class: "needs-validation" }) do |form| %>
       <%= form.hidden_field :date, value: params[:date] %>
 
       <div class="mb-3">

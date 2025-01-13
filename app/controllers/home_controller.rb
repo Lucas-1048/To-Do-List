@@ -2,17 +2,17 @@ class HomeController < ApplicationController
   before_action :redirect_user
 
   def index
-    if params[:date].present?
+    if params[:date]
       @lists = List.includes(:tasks).where(date: params[:date], user_id: current_user.id)
 
-      if params[:category].present?
+      if params[:category]
         @lists = @lists.where(category: params[:category])
       end
     else
       @today_lists = List.includes(:tasks).where(date: Date.today, user_id: current_user.id)
       @tomorrow_lists = List.includes(:tasks).where(date: Date.tomorrow, user_id: current_user.id)
 
-      if params[:category].present?
+      if params[:category]
         @today_lists = @today_lists.where(category: params[:category])
         @tomorrow_lists = @tomorrow_lists.where(category: params[:category])
       end
@@ -42,7 +42,7 @@ class HomeController < ApplicationController
       params[:list][:tasks].values.each do |task_params|
         Task.create(list_id: list.id, checked: task_params[:checked], description: task_params[:description])
       end
-      if list.date.present?
+      if list.date != Date.today && list.date != Date.tomorrow
         redirect_to root_path(date: list.date)
       else
         redirect_to root_path
@@ -74,7 +74,7 @@ class HomeController < ApplicationController
         task = list.tasks.find_by(id: task_params[:id])
         task.update(description: task_params[:description], checked: task_params[:checked])
       end
-      if list.date.present?
+      if list.date != Date.today && list.date != Date.tomorrow
         redirect_to root_path(date: list.date)
       else
         redirect_to root_path

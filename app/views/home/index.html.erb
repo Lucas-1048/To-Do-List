@@ -1,7 +1,7 @@
 <%= render "home/header" %>
 <%= stylesheet_link_tag 'home' %>
 
-<% if params[:date].present? %>
+<% if params[:date] %>
   <div class="header-container">
     <div class="d-flex justify-content-between align-items-center">
       <h2 class="text-light"><%= Date.parse(params[:date]).strftime('%d/%m/%Y') %></h2>
@@ -18,7 +18,7 @@
         <div class="header">
           <p class="category">Categoria: <%= list.category %></p>
           <div class="icons">
-            <%= link_to edit_home_path(id: list.id, date: params[:date]) do %>
+            <%= link_to edit_home_path(id: list.id, date: list.date) do %>
               <%= image_tag 'edit.svg', alt: 'Edit', class: 'icon-settings' %>
             <% end %>
             <%= link_to home_path(id: list.id), method: :delete do %>
@@ -56,7 +56,7 @@
         <div class="header">
           <p class="category">Categoria: <%= list.category %></p>
           <div class="icons">
-            <%= link_to edit_home_path(id: list.id, date: params[:date]) do %>
+            <%= link_to edit_home_path(id: list.id) do %>
               <%= image_tag 'edit.svg', alt: 'Edit', class: 'icon-settings' %>
             <% end %>
             <%= link_to home_path(id: list.id), method: :delete do %>
@@ -93,7 +93,7 @@
         <div class="header">
           <p class="category">Categoria: <%= list.category %></p>
           <div class="icons">
-            <%= link_to edit_home_path(id: list.id, date: params[:date]) do %>
+            <%= link_to edit_home_path(id: list.id) do %>
               <%= image_tag 'edit.svg', alt: 'Edit', class: 'icon-settings' %>
             <% end %>
             <%= link_to home_path(id: list.id), method: :delete do %>
