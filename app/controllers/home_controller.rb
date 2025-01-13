@@ -89,18 +89,6 @@ class HomeController < ApplicationController
     redirect_to root_path
   end
 
-  def set_personal
-    @lists = List.includes(:tasks).where(user_id: current_user.id, category: "personal")
-  end
-
-  def set_work
-    @lists = List.includes(:tasks).where(user_id: current_user.id, category: "work")
-  end
-
-  def set_study
-    @lists = List.includes(:tasks).where(user_id: current_user.id, category: "study")
-  end
-
   private
 
   def redirect_user

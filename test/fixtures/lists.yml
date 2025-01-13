@@ -1,9 +1,8 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
-  category: MyString
+  title: "Teste"
+  category: "Trabalho"
+  user: one
+  date: <%= Date.today %>
 
-two:
-  title: MyString
-  category: MyString
