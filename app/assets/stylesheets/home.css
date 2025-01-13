@@ -3,6 +3,13 @@
   margin-top: 100px;
 }
 
+.calendar-header h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #e9ecef;
+}  
+
 .custom-line {
   border: 0;
   border-top: 2px solid #ccc;

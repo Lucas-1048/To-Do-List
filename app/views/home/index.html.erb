@@ -1,39 +1,116 @@
 <%= render "home/header" %>
 <%= stylesheet_link_tag 'home' %>
 
-<div class="header-container">
-  <div class="d-flex justify-content-between align-items-center">
-    <h2 class="text-light">Hoje</h2>
-    <%= link_to new_home_path do %>
-      <%= image_tag 'plus-circle.svg', alt: 'Adicionar' %> 
+<% if params[:date].present? %>
+  <div class="header-container">
+    <div class="d-flex justify-content-between align-items-center">
+      <h2 class="text-light"><%= Date.parse(params[:date]).strftime('%d/%m/%Y') %></h2>
+      <%= link_to new_home_path(date: params[:date]) do %>
+        <%= image_tag 'plus-circle.svg', alt: 'Adicionar' %> 
+      <% end %>
+    </div>
+    <hr class="custom-line">
+  </div>
+
+  <div class="lists-container">
+    <% @lists.each do |list| %>
+      <div class="card">
+        <div class="header">
+          <p class="category">Categoria: <%= list.category %></p>
+          <div class="icons">
+            <%= link_to edit_home_path(id: list.id, date: params[:date]) do %>
+              <%= image_tag 'edit.svg', alt: 'Edit', class: 'icon-settings' %>
+            <% end %>
+            <%= link_to home_path(id: list.id), method: :delete do %>
+              <%= image_tag 'trash.svg', alt: 'Delete', class: 'icon-settings' %>
+            <% end %>
+          </div>
+        </div>
+        <h2><%= list.title %></h2>
+        <ul>
+          <% list.tasks.each do |task| %>
+            <li>
+              <span><%= task.description %></span>
+              <input type="checkbox" <%= 'checked' if task.checked %> disabled>
+            </li>
+          <% end %>
+        </ul>
+      </div>
     <% end %>
   </div>
-  <hr class="custom-line">
-</div>
 
-<div class="lists-container">
-  <% @lists.each do |list| %>
-    <div class="card">
-      <div class="header">
-        <p class="category">Categoria: <%= list.category %></p>
-        <div class="icons">
-          <%= link_to edit_home_path(id: list.id) do %>
-            <%= image_tag 'edit.svg', alt: 'Edit', class: 'icon-settings' %>
-          <% end %>
-          <%= link_to home_path(id: list.id), method: :delete do %>
-            <%= image_tag 'trash.svg', alt: 'Delete', class: 'icon-settings' %>
-          <% end %>
-        </div>
-      </div>
-      <h2><%= list.title %></h2>
-      <ul>
-        <% list.tasks.each do |task| %>
-          <li>
-            <span><%= task.description %></span>
-            <input type="checkbox" <%= 'checked' if task.checked %> disabled>
-          </li>
-        <% end %>
-      </ul>
+<% else %>
+  <div class="header-container">
+    <div class="d-flex justify-content-between align-items-center">
+      <h2 class="text-light">Hoje</h2>
+      <%= link_to new_home_path(date: Date.today) do %>
+        <%= image_tag 'plus-circle.svg', alt: 'Adicionar' %> 
+      <% end %>
     </div>
-  <% end %>
-</div>
+    <hr class="custom-line">
+  </div>
+
+  <div class="lists-container">
+    <% @today_lists.each do |list| %>
+      <div class="card">
+        <div class="header">
+          <p class="category">Categoria: <%= list.category %></p>
+          <div class="icons">
+            <%= link_to edit_home_path(id: list.id, date: params[:date]) do %>
+              <%= image_tag 'edit.svg', alt: 'Edit', class: 'icon-settings' %>
+            <% end %>
+            <%= link_to home_path(id: list.id), method: :delete do %>
+              <%= image_tag 'trash.svg', alt: 'Delete', class: 'icon-settings' %>
+            <% end %>
+          </div>
+        </div>
+        <h2><%= list.title %></h2>
+        <ul>
+          <% list.tasks.each do |task| %>
+            <li>
+              <span><%= task.description %></span>
+              <input type="checkbox" <%= 'checked' if task.checked %> disabled>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="header-container">
+    <div class="d-flex justify-content-between align-items-center">
+      <h2 class="text-light">Amanhã</h2>
+      <%= link_to new_home_path(date: Date.tomorrow) do %>
+        <%= image_tag 'plus-circle.svg', alt: 'Adicionar' %> 
+      <% end %>
+    </div>
+    <hr class="custom-line">
+  </div>
+
+  <div class="lists-container">
+    <% @tomorrow_lists.each do |list| %>
+      <div class="card">
+        <div class="header">
+          <p class="category">Categoria: <%= list.category %></p>
+          <div class="icons">
+            <%= link_to edit_home_path(id: list.id, date: params[:date]) do %>
+              <%= image_tag 'edit.svg', alt: 'Edit', class: 'icon-settings' %>
+            <% end %>
+            <%= link_to home_path(id: list.id), method: :delete do %>
+              <%= image_tag 'trash.svg', alt: 'Delete', class: 'icon-settings' %>
+            <% end %>
+          </div>
+        </div>
+        <h2><%= list.title %></h2>
+        <ul>
+          <% list.tasks.each do |task| %>
+            <li>
+              <span><%= task.description %></span>
+              <input type="checkbox" <%= 'checked' if task.checked %> disabled>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+<% end %>

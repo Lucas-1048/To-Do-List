@@ -2,19 +2,30 @@ class HomeController < ApplicationController
   before_action :redirect_user
 
   def index
-    if params[:category].present?
-      @lists = List.includes(:tasks).where(user_id: current_user.id, category: params[:category])
+    if params[:date].present?
+      @lists = List.includes(:tasks).where(date: params[:date], user_id: current_user.id)
+
+      if params[:category].present?
+        @lists = @lists.where(category: params[:category])
+      end
     else
-      @lists = List.includes(:tasks).where(user_id: current_user.id)
+      @today_lists = List.includes(:tasks).where(date: Date.today, user_id: current_user.id)
+      @tomorrow_lists = List.includes(:tasks).where(date: Date.tomorrow, user_id: current_user.id)
+
+      if params[:category].present?
+        @today_lists = @today_lists.where(category: params[:category])
+        @tomorrow_lists = @tomorrow_lists.where(category: params[:category])
+      end
     end
   end
 
   def new
     @list = List.new
+    @list.date = params[:date]
   end
 
   def create
-    list_params = params.require(:list).permit(:title, :category)
+    list_params = params.require(:list).permit(:title, :category, :date)
     list = List.new(list_params.merge(user_id: current_user.id))
 
     if list.title.blank?
@@ -31,7 +42,11 @@ class HomeController < ApplicationController
       params[:list][:tasks].values.each do |task_params|
         Task.create(list_id: list.id, checked: task_params[:checked], description: task_params[:description])
       end
-      redirect_to root_path
+      if list.date.present?
+        redirect_to root_path(date: list.date)
+      else
+        redirect_to root_path
+      end
     else
       redirect_to new_home_path, alert: "Erro ao criar lista."
     end
@@ -59,7 +74,11 @@ class HomeController < ApplicationController
         task = list.tasks.find_by(id: task_params[:id])
         task.update(description: task_params[:description], checked: task_params[:checked])
       end
-      redirect_to root_path
+      if list.date.present?
+        redirect_to root_path(date: list.date)
+      else
+        redirect_to root_path
+      end
     else
       redirect_to edit_home_path(list), alert: "Erro ao atualizar lista."
     end

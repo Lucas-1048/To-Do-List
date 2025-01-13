@@ -27,11 +27,11 @@
           <li class="nav-item mb-4">
             <span class="nav-link">Tarefas</span>
             <ul class="list-unstyled ms-3">
-              <li><a class="nav-link" href="#">
+              <li><a class="nav-link" href="<%= url_for(root_path) %>">
                 <%= image_tag 'chevrons-right.svg', alt: 'Tarefas Próximas', class: 'icon-settings' %>
                 Tarefas Próximas
               </a></li>
-              <li><a class="nav-link" href="#">
+              <li><a class="nav-link" href= "<%= url_for(calendar_path) %>">
                 <%= image_tag 'calendar.svg', alt: 'Calendário', class: 'icon-settings' %>
                 Calendário
               </a></li>
@@ -40,18 +40,28 @@
           <li class="nav-item">
             <span class="nav-link">Categorias</span>
             <ul class="list-unstyled ms-3">
-              <li><a class="nav-link" href="<%= home_category_path(category: 'Trabalho') %>">
+              <li><a class="nav-link" href="<%= params[:date].present? ? 
+                                          home_filter_path(category: 'Trabalho', date: params[:date]) : 
+                                          home_filter_path(category: 'Trabalho') %>">
                 <%= image_tag 'briefcase.svg', alt: 'Trabalho', class: 'icon-settings' %>
                 Trabalho
               </a></li>
-              <li><a class="nav-link" href="<%= home_category_path(category: 'Escola') %>">
+              
+              <li><a class="nav-link" href="<%= params[:date].present? ? 
+                                          home_filter_path(category: 'Escola', date: params[:date]) : 
+                                          home_filter_path(category: 'Escola') %>">
                 <%= image_tag 'school.svg', alt: 'Escola', class: 'icon-settings' %>
                 Escola
               </a></li>
-              <li><a class="nav-link" href="<%= home_category_path(category: 'Pessoal') %>">
-                <%= image_tag 'user.svg', alt: 'Pessoal', class: 'icon-settings' %>
-                Pessoal
-              </a></li>
+              
+              <li>
+                <a class="nav-link" href="<%= params[:date].present? ? 
+                                          home_filter_path(category: 'Pessoal', date: params[:date]) : 
+                                          home_filter_path(category: 'Pessoal') %>">
+                  <%= image_tag 'user.svg', alt: 'Pessoal', class: 'icon-settings' %>
+                  Pessoal
+                </a>
+              </li>
             </ul>
           </li>
         </ul>

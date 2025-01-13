@@ -1,0 +1,113 @@
+.custom-calendar-container {
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.calendar-header {
+  margin-bottom: 1rem;
+}
+
+.calendar-header h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #f8f9fa;
+}  
+
+.custom-calendar {
+  font-family: 'Arial', sans-serif;
+  color: #f8f9fa; 
+  background-color: #343a40; 
+  border: 1px solid #495057;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  max-width: 800px;
+  width: 100%;
+}
+
+.custom-calendar .calendar-heading {
+  background-color: #495057;
+  text-align: center;
+  padding: 15px 10px;
+  border-bottom: 1px solid #6c757d;
+}
+
+.custom-calendar .calendar-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #f8f9fa;
+}
+
+.custom-calendar .calendar-navigation {
+  margin-top: 10px;
+}
+
+.custom-calendar .calendar-nav-link {
+  color: #f8f9fa;
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin: 0 5px;
+}
+
+.custom-calendar .calendar-nav-link:hover {
+  text-decoration: underline;
+}
+
+.custom-calendar .calendar-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.custom-calendar .calendar-table th {
+  background-color: #212529;
+  font-weight: bold;
+  color: #adb5bd;
+  padding: 10px;
+}
+
+.custom-calendar .calendar-table td {
+  padding: 15px;
+  vertical-align: top;
+  border: 1px solid #343a40;
+  background-color: #212529; 
+  color: #f8f9fa;
+}
+
+.custom-calendar .calendar-day.inactive {
+  background-color: #343a40;
+  color: #6c757d; 
+}
+
+.custom-calendar .calendar-day.today {
+  background-color: #495057;
+  font-weight: bold;
+  border: 2px solid #ffc107;
+}
+
+.custom-calendar .calendar-day .event {
+  background-color: #007bff; 
+  color: #fff;
+  padding: 3px 5px;
+  margin-top: 5px;
+  display: inline-block;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+.date-select-button {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+
+.date-select-button:hover {
+  text-decoration: underline;
+}
+

@@ -1,0 +1,45 @@
+<%= stylesheet_link_tag 'calendar' %>
+
+<div class="custom-calendar-container">
+  <div class="calendar-header">
+    <h2>Escolha a data que você gostaria de adicionar uma nova lista de tarefas</h2>
+  </div>
+
+  <div class="simple-calendar custom-calendar">
+    <div class="calendar-heading">
+      <time datetime="<%= start_date.strftime('%Y-%m') %>" class="calendar-title">
+        <%= t('date.month_names')[start_date.month] %> <%= start_date.year %>
+      </time>
+
+      <nav class="calendar-navigation">
+        <%= link_to t('simple_calendar.previous', default: 'Antes'), calendar.url_for_previous_view, class: 'calendar-nav-link prev' %>
+        <%= link_to t('simple_calendar.next', default: 'Próximo'), calendar.url_for_next_view, class: 'calendar-nav-link next' %>
+      </nav>
+    </div>
+
+    <table class="calendar-table">
+      <thead>
+        <tr>
+          <% date_range.slice(0, 7).each do |day| %>
+            <th class="calendar-day-name"><%= t('date.abbr_day_names')[day.wday] %></th>
+          <% end %>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% date_range.each_slice(7) do |week| %>
+          <tr>
+            <% week.each do |day| %>
+              <td class="calendar-day <%= calendar.td_classes_for(day) %>">
+                <%= form_with url: root_path(date: day.to_date), method: :get, class: "date-selection-form" do %>
+                  <%= hidden_field_tag :date, day.to_date %>
+                  <%= submit_tag I18n.l(day, format: :default), class: "date-select-button" %>
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
